@@ -12,40 +12,28 @@ import com.badlogic.gdx.utils.BufferUtils;
 public class Game implements ApplicationListener {
     // Vertex buffer.
     private FloatBuffer vertexBuffer = null;
-    private int boxWidth = 20;
+    private int boxWidth = 100;
     private int box_x, box_y;
     
     
     @Override
     public void create() {
-        System.out.println("Created!");
-        
-        this.box_x = this.box_y = 10;
-        
+        this.box_x = this.box_y = 200;
         this.vertexBuffer = BufferUtils.newFloatBuffer(8);
-        
-        float[] box = new float[] {0,0, 0,boxWidth,  boxWidth,0,  boxWidth,boxWidth};
+        float[] box =  new float[] {0,0, boxWidth/2,boxWidth,  boxWidth/2,boxWidth/5,  boxWidth,0};
         this.vertexBuffer.put(box);
         this.vertexBuffer.rewind();
         Gdx.gl11.glVertexPointer(2, GL11.GL_FLOAT, 0, this.vertexBuffer);
-        
-        // Enable vertex array.
         Gdx.gl11.glEnableClientState(GL11.GL_VERTEX_ARRAY);
-        
-        // Select clear color for the screen.
         Gdx.gl11.glClearColor(.3f, .3f, .3f, 1f);
-        
     }
 
     @Override
     public void dispose() {
-        // TODO Auto-generated method stub
-        
     }
 
     @Override
     public void pause() {
-        // TODO Auto-generated method stub
     }
     
     private void display(){
@@ -53,7 +41,6 @@ public class Game implements ApplicationListener {
         Gdx.gl11.glMatrixMode(GL11.GL_MODELVIEW);
         Gdx.gl11.glLoadIdentity();
         Gdx.gl11.glColor4f(1f, 1f, 1f, 1f);
-        
         Gdx.gl11.glPushMatrix();
         Gdx.gl11.glTranslatef(this.box_x, this.box_y, 0);
         Gdx.gl11.glDrawArrays(GL11.GL_TRIANGLE_STRIP, 0, 4);
@@ -63,22 +50,22 @@ public class Game implements ApplicationListener {
     private void update(){
         if(Gdx.input.isKeyPressed(Keys.RIGHT)){
             if(this.box_x < Gdx.graphics.getWidth()-this.boxWidth) {
-        	   this.box_x += 2;
+        	   this.box_x += 10;
             }
         }
         if(Gdx.input.isKeyPressed(Keys.LEFT)){
             if(this.box_x > 0) {
-         	   this.box_x -= 2;
+         	   this.box_x -= 10;
              }
         }
         if(Gdx.input.isKeyPressed(Keys.UP)){
         	if(this.box_y < Gdx.graphics.getHeight()-this.boxWidth) {
-         	   this.box_y += 2;
+         	   this.box_y += 15;
              }
         }
         if(Gdx.input.isKeyPressed(Keys.DOWN)){
         	if(this.box_y > 0) {
-          	   this.box_y -= 2;
+          	   this.box_y -= 10;
               }
         }
     }
@@ -109,7 +96,6 @@ public class Game implements ApplicationListener {
 
     @Override
     public void resume() {
-        // TODO Auto-generated method stub
     }
 }
 
