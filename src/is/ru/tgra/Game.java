@@ -14,10 +14,11 @@ public class Game implements ApplicationListener {
     private FloatBuffer vertexBuffer = null;
     private int boxWidth = 100;
     private int box_x, box_y;
-    
+    private int angle;
     
     @Override
     public void create() {
+    	this.angle = 0;
         this.box_x = this.box_y = 200;
         this.vertexBuffer = BufferUtils.newFloatBuffer(8);
         float[] box =  new float[] {0,0, boxWidth/2,boxWidth,  boxWidth/2,boxWidth/5,  boxWidth,0};
@@ -42,26 +43,23 @@ public class Game implements ApplicationListener {
         Gdx.gl11.glLoadIdentity();
         Gdx.gl11.glColor4f(1f, 1f, 1f, 1f);
         Gdx.gl11.glPushMatrix();
-        Gdx.gl11.glTranslatef(this.box_x, this.box_y, 0);
+        Gdx.gl11.glTranslatef(this.box_x-this.boxWidth,this.box_y, 0);
+        Gdx.gl11.glRotatef(this.angle, 0,0, 1);
+        Gdx.gl11.glTranslatef(-this.boxWidth/2,-this.boxWidth/2, 0);
+        Gdx.gl11.glTranslatef(0, 0, 0);
         Gdx.gl11.glDrawArrays(GL11.GL_TRIANGLE_STRIP, 0, 4);
         Gdx.gl11.glPopMatrix(); 
     }
     
     private void update(){
         if(Gdx.input.isKeyPressed(Keys.RIGHT)){
-            if(this.box_x < Gdx.graphics.getWidth()-this.boxWidth) {
-        	   this.box_x += 10;
-            }
+            this.angle -=10;
         }
         if(Gdx.input.isKeyPressed(Keys.LEFT)){
-            if(this.box_x > 0) {
-         	   this.box_x -= 10;
-             }
+         	   this.angle += 10;
         }
         if(Gdx.input.isKeyPressed(Keys.UP)){
-        	if(this.box_y < Gdx.graphics.getHeight()-this.boxWidth) {
          	   this.box_y += 15;
-             }
         }
         if(Gdx.input.isKeyPressed(Keys.DOWN)){
         	if(this.box_y > 0) {
