@@ -1,6 +1,5 @@
 package is.ru.tgra;
 
-import java.nio.FloatBuffer;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -8,8 +7,6 @@ import org.lwjgl.opengl.GL11;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.utils.BufferUtils;
 
 public class Game implements ApplicationListener {
 
@@ -22,7 +19,7 @@ public class Game implements ApplicationListener {
     	this.humanPlayer = new Ship(50,50,50);
     	this.objects.add(humanPlayer);
         Gdx.gl11.glEnableClientState(GL11.GL_VERTEX_ARRAY);
-        Gdx.gl11.glClearColor(.3f, .3f, .3f, 1f);
+        Gdx.gl11.glClearColor(0, 0, .09f, 1f);
     }
 
     @Override
