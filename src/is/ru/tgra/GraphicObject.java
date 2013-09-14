@@ -15,16 +15,19 @@ public class GraphicObject
     private int angle;
     private float vertices [];
     private FloatBuffer vertexBuffer = null;
+    private int index;
+    protected int points = 4;
     
-	public GraphicObject(int value_width,int value_height, int value_x, int value_y,int points)
+	public GraphicObject(int index, int value_width,int value_height, int value_x, int value_y,FloatBuffer vertexBuffer)
     {
+		this.index = index;
     	this.width = value_width;
     	this.height = value_height;
     	this.x = value_x;
     	this.y = value_y;
     	this.angle = 0;
     	this.vertices = new float[] {};
-    	this.vertexBuffer = BufferUtils.newFloatBuffer(points);
+    	this.vertexBuffer = vertexBuffer;
     }
     
 	public void display() 
@@ -33,7 +36,7 @@ public class GraphicObject
         Gdx.gl11.glTranslatef(this.getX(),this.getY(), 0);
         Gdx.gl11.glRotatef(this.angle-90, 0,0, 1);
         Gdx.gl11.glTranslatef(-this.getheight()/2,-this.getheight()/2, 0);
-        Gdx.gl11.glDrawArrays(GL11.GL_TRIANGLE_STRIP, 0, 4);
+        Gdx.gl11.glDrawArrays(GL11.GL_TRIANGLE_STRIP, this.index, this.points);
         Gdx.gl11.glPopMatrix();
 	}
 	
@@ -79,12 +82,13 @@ public class GraphicObject
     
     public int getAngle()
     {
+    	System.out.println(this.angle);
     	return this.angle;
     }
     
     public void setAngle(int value)
     {
-    	this.angle = value;
+    	this.angle = value % 360;
     }
     
     public float[] getVertices()
@@ -96,8 +100,6 @@ public class GraphicObject
     {
     	this.vertices = vertices;
     	this.vertexBuffer.put(vertices);
-        this.vertexBuffer.rewind();
-        Gdx.gl11.glVertexPointer(2, GL11.GL_FLOAT, 0, this.vertexBuffer);
     }
 
     public FloatBuffer getVertexBuffer() {

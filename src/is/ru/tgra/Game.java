@@ -1,5 +1,6 @@
 package is.ru.tgra;
 
+import java.nio.FloatBuffer;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -7,17 +8,22 @@ import org.lwjgl.opengl.GL11;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.utils.BufferUtils;
 
 public class Game implements ApplicationListener {
 
     private Ship humanPlayer;
     private List<GraphicObject> objects;
+    private FloatBuffer vertexBuffer = null;
 
     @Override
     public void create() {
+    	this.vertexBuffer = BufferUtils.newFloatBuffer(100);
     	this.objects = new LinkedList<GraphicObject>();
-    	this.humanPlayer = new Ship(50,50,50);
+    	this.humanPlayer = new Ship(0,50,50,50,this.vertexBuffer);
     	this.objects.add(humanPlayer);
+        this.vertexBuffer.rewind();
+        Gdx.gl11.glVertexPointer(2, GL11.GL_FLOAT, 0, this.vertexBuffer);
         Gdx.gl11.glEnableClientState(GL11.GL_VERTEX_ARRAY);
         Gdx.gl11.glClearColor(0, 0, .09f, 1f);
     }

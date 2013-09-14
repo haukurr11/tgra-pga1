@@ -1,20 +1,23 @@
 package is.ru.tgra;
 
+import java.nio.FloatBuffer;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 
 
 public class Ship extends GraphicObject
 {
-    public Ship(int size, int x, int y)
+    public Ship(int index,int size, int x, int y,FloatBuffer vertexBuffer)
     {
-    	super(size,size,x,y,8);
+    	super(index, size,size,x,y,vertexBuffer);
         this.setVertices(new float[] {0,0, this.getheight()/2,
         		                           this.getheight(),  
         	                               this.getheight()/2,
         	                               this.getheight()/5,
         		                           this.getheight(),0});
         this.setAngle(90);
+        this.points = 4;
     }
     
     @Override
@@ -34,5 +37,11 @@ public class Ship extends GraphicObject
         if(Gdx.input.isKeyPressed(Keys.DOWN)){
      	   this.setY( this.getY() + 15);
         }
+        if(Gdx.input.isKeyPressed(Keys.SPACE)){
+      	   this.shoot();
+         }
+    }
+    public void shoot() {
+
     }
 }
