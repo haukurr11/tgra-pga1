@@ -46,7 +46,6 @@ public class Game implements ApplicationListener {
         Gdx.gl11.glTranslatef(this.box_x-this.boxWidth,this.box_y, 0);
         Gdx.gl11.glRotatef(this.angle, 0,0, 1);
         Gdx.gl11.glTranslatef(-this.boxWidth/2,-this.boxWidth/2, 0);
-        Gdx.gl11.glTranslatef(0, 0, 0);
         Gdx.gl11.glDrawArrays(GL11.GL_TRIANGLE_STRIP, 0, 4);
         Gdx.gl11.glPopMatrix(); 
     }
