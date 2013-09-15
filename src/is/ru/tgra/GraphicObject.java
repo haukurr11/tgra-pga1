@@ -15,14 +15,13 @@ public class GraphicObject
     private int angle;
     private float vertices [];
     private FloatBuffer vertexBuffer = null;
-    private int index;
+    protected int index = 0;
     protected int points = 4;
     
-	public GraphicObject(int index, int value_width,int value_height, int value_x, int value_y,FloatBuffer vertexBuffer)
+	public GraphicObject(int value_x, int value_y,FloatBuffer vertexBuffer)
     {
-		this.index = index;
-    	this.width = value_width;
-    	this.height = value_height;
+    	this.width = 0;
+    	this.height = 0;
     	this.x = value_x;
     	this.y = value_y;
     	this.angle = 0;
@@ -30,7 +29,7 @@ public class GraphicObject
     	this.vertexBuffer = vertexBuffer;
     }
     
-	public void display() 
+	public void display()
 	{
 		Gdx.gl11.glPushMatrix();
         Gdx.gl11.glTranslatef(this.getX(),this.getY(), 0);
@@ -38,6 +37,7 @@ public class GraphicObject
         Gdx.gl11.glTranslatef(-this.getheight()/2,-this.getheight()/2, 0);
         Gdx.gl11.glDrawArrays(GL11.GL_TRIANGLE_STRIP, this.index, this.points);
         Gdx.gl11.glPopMatrix();
+
 	}
 	
     public int getWidth()
@@ -99,7 +99,6 @@ public class GraphicObject
     public void setVertices(float[] vertices)
     {
     	this.vertices = vertices;
-    	this.vertexBuffer.put(vertices);
     }
 
     public FloatBuffer getVertexBuffer() {
@@ -112,6 +111,19 @@ public class GraphicObject
 	}
 	
 	public void update() {
+	}
+	
+	public void moveForward(int length) {
+		float x = (float) this.getX() + (float) Math.cos(Math.toRadians(this.getAngle()))*length;
+  	    float y = (float) this.getY() + (float) Math.sin(Math.toRadians(this.getAngle()))*length;
+    	this.setX(x);
+    	this.setY(y);
+	}
+	public void moveBackwards(int length) {
+		float x = (float) this.getX() - (float) Math.cos(Math.toRadians(this.getAngle()))*length;
+  	    float y = (float) this.getY() - (float) Math.sin(Math.toRadians(this.getAngle()))*length;
+    	this.setX(x);
+    	this.setY(y);
 	}
 
 }
