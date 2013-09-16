@@ -19,8 +19,8 @@ public class Game implements ApplicationListener {
     @Override
     public void create() {
     	this.vertexBuffer = BufferUtils.newFloatBuffer(100);
-    	this.vertexBuffer.put(new float[] {0,0, 25,50,25,10,50,0});
-    	this.vertexBuffer.put(new float[] {0,0, 0,10, 10/3,0,  10/3,10});
+    	this.vertexBuffer.put(new float[] {0,0, 10,20,10,2,20,0});
+    	this.vertexBuffer.put(new float[] {0,0, 0,10, 2,0,  2 ,10});
     	this.objects = new LinkedList<GraphicObject>();
     	this.humanPlayer = new Ship(50,50,this.vertexBuffer);
     	this.objects.add(humanPlayer);

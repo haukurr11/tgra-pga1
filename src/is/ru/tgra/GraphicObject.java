@@ -82,7 +82,6 @@ public class GraphicObject
     
     public int getAngle()
     {
-    	System.out.println(this.angle);
     	return this.angle;
     }
     
@@ -113,11 +112,13 @@ public class GraphicObject
 	public void update() {
 	}
 	
-	public void moveForward(int length) {
-		float x = (float) this.getX() + (float) Math.cos(Math.toRadians(this.getAngle()))*length;
-  	    float y = (float) this.getY() + (float) Math.sin(Math.toRadians(this.getAngle()))*length;
+	public void moveForward(double length) {
+
+		float x = (float) this.getX() + (float) Math.cos(Math.toRadians(this.getAngle()))*(float)length;
+  	    float y = (float) this.getY() + (float) Math.sin(Math.toRadians(this.getAngle()))*(float)length;
     	this.setX(x);
     	this.setY(y);
+
 	}
 	public void moveBackwards(int length) {
 		float x = (float) this.getX() - (float) Math.cos(Math.toRadians(this.getAngle()))*length;
