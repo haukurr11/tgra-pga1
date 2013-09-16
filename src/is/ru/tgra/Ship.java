@@ -16,9 +16,11 @@ public class Ship extends GraphicObject
 	private List<Rocket> rockets;
 	private double speed;
 	private double acceleration;
+	private boolean firing;
     public Ship(int x, int y,FloatBuffer vertexBuffer)
     {
     	super(x,y,vertexBuffer);
+
         this.setAngle(90);
         this.points = 4;
         this.index = 0;
@@ -56,12 +58,19 @@ public class Ship extends GraphicObject
         	}
         }
         if(Gdx.input.isKeyPressed(Keys.DOWN)){
-     	   this.moveBackwards(15);
-     	   this.speed = 0;
+        	if(Math.round(this.speed) >0) {
+        	this.speed -= 0.1;
+        	}
         }
         if(Gdx.input.isKeyPressed(Keys.SPACE)){
-      	   this.shoot();
+           if(!this.firing) {
+      	      this.shoot();
+      	      this.firing = true;
+           }
          }
+        else {
+        	this.firing = false;
+        }
         Iterator<Rocket> it = this.rockets.iterator();
         while (it.hasNext()) {
             Rocket rkt = it.next();

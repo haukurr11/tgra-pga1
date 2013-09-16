@@ -22,7 +22,7 @@ public class Game implements ApplicationListener {
     	this.vertexBuffer.put(new float[] {0,0, 10,20,10,2,20,0});
     	this.vertexBuffer.put(new float[] {0,0, 0,10, 2,0,  2 ,10});
     	this.objects = new LinkedList<GraphicObject>();
-    	this.humanPlayer = new Ship(50,50,this.vertexBuffer);
+    	this.humanPlayer = new Ship(Gdx.graphics.getHeight()/2,Gdx.graphics.getWidth()/2,this.vertexBuffer);
     	this.objects.add(humanPlayer);
         this.vertexBuffer.rewind();
         Gdx.gl11.glVertexPointer(2, GL11.GL_FLOAT, 0, this.vertexBuffer);
