@@ -31,6 +31,7 @@ public class GraphicObject
     
 	public void display()
 	{
+
 		Gdx.gl11.glPushMatrix();
         Gdx.gl11.glTranslatef(this.getX(),this.getY(), 0);
         Gdx.gl11.glRotatef(this.angle-90, 0,0, 1);

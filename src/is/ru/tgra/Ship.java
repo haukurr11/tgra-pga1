@@ -16,6 +16,8 @@ public class Ship extends GraphicObject
 	private List<Rocket> rockets;
 	private double speed;
 	private double acceleration;
+	private double deceleration;
+    private int max_speed;
 	private boolean firing;
     public Ship(int x, int y,FloatBuffer vertexBuffer)
     {
@@ -29,6 +31,8 @@ public class Ship extends GraphicObject
         this.setHeight(20);
         this.setWidth(20);
         this.acceleration = 0.5;
+        this.deceleration = 0.1;
+        this.max_speed = 10;
     }
     
     @Override
@@ -44,14 +48,14 @@ public class Ship extends GraphicObject
         	if(this.speed <= 0 ) {
         		this.speed = 0.01;
         	}
-        	if(Math.round(this.speed) <= 10) {
+        	if(Math.round(this.speed) <= this.max_speed) {
         	this.speed += this.acceleration;
 
         	}
         }
         else {
         	if(Math.round(this.speed) >0) {
-        	this.speed -= 0.1;
+        	    this.speed -= this.deceleration;
         	}
         	else {
         		this.speed = 0;
@@ -59,7 +63,7 @@ public class Ship extends GraphicObject
         }
         if(Gdx.input.isKeyPressed(Keys.DOWN)){
         	if(Math.round(this.speed) >0) {
-        	this.speed -= 0.1;
+        		this.speed -= this.deceleration;
         	}
         }
         if(Gdx.input.isKeyPressed(Keys.SPACE)){
@@ -87,11 +91,11 @@ public class Ship extends GraphicObject
     	float x = (float) this.getX() + (float) Math.cos(Math.toRadians(this.getAngle()))*(float)5.0;
   	    float y = (float) this.getY() + (float) Math.sin(Math.toRadians(this.getAngle()))*(float)5.0;
     	this.rockets.add(new Rocket(this.getAngle(),(int)Math.round(x),(int)Math.round(y),this.getVertexBuffer()));
-
     }
     @Override
 	public void display()
 	{
+        Gdx.gl11.glColor4f(0f, 1f, 3f, 1f);
 		super.display();
 		for(Rocket rkt : this.rockets) {
 			rkt.display();

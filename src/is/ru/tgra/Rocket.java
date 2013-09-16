@@ -1,9 +1,15 @@
 package is.ru.tgra;
 
 import java.nio.FloatBuffer;
+import java.util.Random;
+
+import com.badlogic.gdx.Gdx;
 
 public class Rocket extends GraphicObject{
 	private long created;
+	private float red;
+	private float green;
+	private float blue;
 	public long getCreated() {
 		return created;
 	}
@@ -14,9 +20,21 @@ public class Rocket extends GraphicObject{
     	this.index = 4;
     	this.setAngle(angle);
     	this.created = System.currentTimeMillis();
+    	Random rand = new Random();
+    	this.red = rand.nextFloat();
+    	this.green = rand.nextFloat();
+    	this.blue = rand.nextFloat();
     }
 	@Override
 	public void update() {
 	   this.moveForward(10);
+	}
+	
+	@Override 
+	public void display(){
+		Random rand = new Random();
+
+        Gdx.gl11.glColor4f(this.red,this.green,this.blue,1.0f);
+		super.display();
 	}
 }
