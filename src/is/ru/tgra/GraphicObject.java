@@ -119,7 +119,18 @@ public class GraphicObject
   	    float y = (float) this.getY() + (float) Math.sin(Math.toRadians(this.getAngle()))*(float)length;
     	this.setX(x);
     	this.setY(y);
-
+    	if(this.getX()<=0) {
+    		this.setX(Gdx.graphics.getWidth());
+    	}
+    	else if(this.getY() <= 0) {
+    		this.setY(Gdx.graphics.getHeight());
+    	}
+    	else if(Gdx.graphics.getWidth()< this.getX()) {
+    		this.setX(0);
+    	}
+    	else if(Gdx.graphics.getHeight()< this.getY()) {
+    		this.setY(0);
+    	}
 	}
 	public void moveBackwards(int length) {
 		float x = (float) this.getX() - (float) Math.cos(Math.toRadians(this.getAngle()))*length;

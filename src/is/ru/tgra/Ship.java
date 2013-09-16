@@ -19,6 +19,8 @@ public class Ship extends GraphicObject
 	private double deceleration;
     private int max_speed;
 	private boolean firing;
+	private int rocket_speed;
+	private int rocket_timealive;
     public Ship(int x, int y,FloatBuffer vertexBuffer)
     {
     	super(x,y,vertexBuffer);
@@ -33,6 +35,9 @@ public class Ship extends GraphicObject
         this.acceleration = 0.5;
         this.deceleration = 0.1;
         this.max_speed = 10;
+        this.rocket_speed = 10;
+        this.rocket_timealive = 500;
+
     }
     
     @Override
@@ -61,11 +66,6 @@ public class Ship extends GraphicObject
         		this.speed = 0;
         	}
         }
-        if(Gdx.input.isKeyPressed(Keys.DOWN)){
-        	if(Math.round(this.speed) >0) {
-        		this.speed -= this.deceleration;
-        	}
-        }
         if(Gdx.input.isKeyPressed(Keys.SPACE)){
            if(!this.firing) {
       	      this.shoot();
@@ -78,19 +78,17 @@ public class Ship extends GraphicObject
         Iterator<Rocket> it = this.rockets.iterator();
         while (it.hasNext()) {
             Rocket rkt = it.next();
-            if(rkt.getCreated() < System.currentTimeMillis()-1000) {
+            if(rkt.getCreated() < System.currentTimeMillis()-this.rocket_timealive) {
                 it.remove();
 			}else {
                 rkt.update();
 			}
-
         }
-
     }
     public void shoot() {
-    	float x = (float) this.getX() + (float) Math.cos(Math.toRadians(this.getAngle()))*(float)5.0;
-  	    float y = (float) this.getY() + (float) Math.sin(Math.toRadians(this.getAngle()))*(float)5.0;
-    	this.rockets.add(new Rocket(this.getAngle(),(int)Math.round(x),(int)Math.round(y),this.getVertexBuffer()));
+    	float x = (float) this.getX() + (float) Math.cos(Math.toRadians(this.getAngle()))*(float)this.getWidth()/4;
+  	    float y = (float) this.getY() + (float) Math.sin(Math.toRadians(this.getAngle()))*(float)this.getheight()/4;
+    	this.rockets.add(new Rocket(this.getAngle(),(int)Math.round(x),(int)Math.round(y),this.speed+this.rocket_speed,  this.getVertexBuffer()));
     }
     @Override
 	public void display()
@@ -105,17 +103,6 @@ public class Ship extends GraphicObject
     @Override 
     public void moveForward(double speed) {
     	super.moveForward(speed);
-    	if(this.getX()<=0) {
-    		this.setX(Gdx.graphics.getWidth());
-    	}
-    	else if(this.getY() <= 0) {
-    		this.setY(Gdx.graphics.getHeight());
-    	}
-    	else if(Gdx.graphics.getWidth()< this.getX()) {
-    		this.setX(0);
-    	}
-    	else if(Gdx.graphics.getHeight()< this.getY()) {
-    		this.setY(0);
-    	}
+
     }
 }

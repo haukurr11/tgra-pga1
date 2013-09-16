@@ -10,10 +10,11 @@ public class Rocket extends GraphicObject{
 	private float red;
 	private float green;
 	private float blue;
+	private double speed;
 	public long getCreated() {
 		return created;
 	}
-	public Rocket(int angle, int x, int y,FloatBuffer vertexBuffer)
+	public Rocket(int angle, int x, int y,double speed,FloatBuffer vertexBuffer)
     {
     	super(x,y,vertexBuffer);
     	this.points = 4;
@@ -24,10 +25,11 @@ public class Rocket extends GraphicObject{
     	this.red = rand.nextFloat();
     	this.green = rand.nextFloat();
     	this.blue = rand.nextFloat();
+    	this.speed = speed;
     }
 	@Override
 	public void update() {
-	   this.moveForward(10);
+	   this.moveForward(this.speed);
 	}
 	
 	@Override 
@@ -36,5 +38,6 @@ public class Rocket extends GraphicObject{
 
         Gdx.gl11.glColor4f(this.red,this.green,this.blue,1.0f);
 		super.display();
+		Gdx.gl11.glColor4f(1f,1f,1f,1.0f);
 	}
 }

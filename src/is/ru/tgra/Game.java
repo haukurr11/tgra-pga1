@@ -3,6 +3,7 @@ package is.ru.tgra;
 import java.nio.FloatBuffer;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 import org.lwjgl.opengl.GL11;
 
@@ -15,15 +16,31 @@ public class Game implements ApplicationListener {
     private Ship humanPlayer;
     private List<GraphicObject> objects;
     private FloatBuffer vertexBuffer = null;
-
+    private int level;
     @Override
     public void create() {
+    	this.level = 5;
     	this.vertexBuffer = BufferUtils.newFloatBuffer(100);
-    	this.vertexBuffer.put(new float[] {0,0, 10,20,10,2,20,0});
+    	this.vertexBuffer.put(new float[] {0,0, 10,20, 10,2, 20,0});
     	this.vertexBuffer.put(new float[] {0,0, 0,10, 2,0,  2 ,10});
+    	this.vertexBuffer.put(new float[] {0,0, 2,50,  45,0,  30,50});
     	this.objects = new LinkedList<GraphicObject>();
     	this.humanPlayer = new Ship(Gdx.graphics.getHeight()/2,Gdx.graphics.getWidth()/2,this.vertexBuffer);
     	this.objects.add(humanPlayer);
+    	Random rand = new Random();
+    	for(int i =0;i<this.level*(this.level-2)+10;i++) {
+    		   int x,y;
+    		   do {
+        		   x = rand.nextInt(Gdx.graphics.getWidth());
+    		   }while( Math.abs(humanPlayer.getX()-x) < 200);
+    		   
+    		   do {
+        		   y = rand.nextInt(Gdx.graphics.getHeight());
+    		   }while( Math.abs(humanPlayer.getY()-y) < 200);
+    		   
+    		   this.objects.add(new Asteroid(rand.nextInt(360), x, y, this.vertexBuffer)); 
+    	}
+    	
         this.vertexBuffer.rewind();
         Gdx.gl11.glVertexPointer(2, GL11.GL_FLOAT, 0, this.vertexBuffer);
         Gdx.gl11.glEnableClientState(GL11.GL_VERTEX_ARRAY);
