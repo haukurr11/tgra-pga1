@@ -77,6 +77,8 @@ public class Game implements ApplicationListener {
         } 
     }
     private void nextLevel() {
+    	this.objects = new LinkedList<GraphicObject>();
+    	this.objects.add(this.humanPlayer);
     	this.humanPlayer.setX(this.init_shipx);
     	this.humanPlayer.setY(this.init_shipy);
     	this.humanPlayer.setSpeed(0);
@@ -109,6 +111,11 @@ public class Game implements ApplicationListener {
         	GraphicObject obj = obj_it.next();
     		if(obj != this.humanPlayer) {
     	        Iterator<Rocket> it = this.humanPlayer.getRockets().iterator();
+    	        if(obj.collides(this.humanPlayer)) {
+    	        	this.level = 0;
+    	        	this.nextLevel();
+    	        	return;
+    	        }
     	        while (it.hasNext()) {
     	            Rocket rkt = it.next();
     	            if(rkt.collides(obj)) {
