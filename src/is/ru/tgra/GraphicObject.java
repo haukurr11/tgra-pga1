@@ -17,8 +17,16 @@ public class GraphicObject
     private FloatBuffer vertexBuffer = null;
     protected int index = 0;
     protected int points = 4;
-    protected int moving_angle;
+    private int moving_angle;
     
+	public int getMoving_angle() {
+		return moving_angle;
+	}
+
+	public void setMoving_angle(int moving_angle) {
+		this.moving_angle = moving_angle % 360;
+	}
+
 	public GraphicObject(int value_x, int value_y,FloatBuffer vertexBuffer)
     {
     	this.width = 0;

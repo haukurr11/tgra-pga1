@@ -32,7 +32,7 @@ public class Ship extends GraphicObject
         this.rockets = new LinkedList<Rocket>();
         this.setHeight(20);
         this.setWidth(20);
-        this.acceleration = 0.5;
+        this.acceleration = 0.1;
         this.deceleration = 0.1;
         this.max_speed = 10;
         this.rocket_speed = 10;
@@ -50,16 +50,14 @@ public class Ship extends GraphicObject
         	this.setAngle(this.getAngle() + 10);
         }
         if(Gdx.input.isKeyPressed(Keys.UP)){
-        	if(!Gdx.input.isKeyPressed(Keys.LEFT) &&
-        	   !Gdx.input.isKeyPressed(Keys.RIGHT) &&
-        	   this.moving_angle != this.getAngle()) {
-        		this.speed -= Math.abs(this.moving_angle-this.getAngle());
+        	if(!Gdx.input.isKeyPressed(Keys.LEFT) && !Gdx.input.isKeyPressed(Keys.RIGHT) ) {
+        		this.speed -= Math.abs(this.getMoving_angle()-this.getAngle())/10;
         	}
-         	this.moving_angle = this.getAngle();
+         	this.setMoving_angle(this.getAngle());
         	if(this.speed <= 0 ) {
         		this.speed = 0.01;
         	}
-        	if(Math.round(this.speed) <= this.max_speed) {
+        	if(Math.round(this.speed) < this.max_speed) {
         	this.speed += this.acceleration;
 
         	}
@@ -91,7 +89,6 @@ public class Ship extends GraphicObject
         }
     }
     public void shoot() {
-    	System.out.println(this.getAngle());
     	float x = (float) this.getX() + (float) Math.cos(Math.toRadians(this.getAngle()))*(float)this.getWidth()/4;
   	    float y = (float) this.getY() + (float) Math.sin(Math.toRadians(this.getAngle()))*(float)this.getheight()/4;
     	this.rockets.add(new Rocket(this.getAngle(),(int)Math.round(x),(int)Math.round(y),this.speed+this.rocket_speed,  this.getVertexBuffer()));

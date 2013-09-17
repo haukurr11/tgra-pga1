@@ -7,12 +7,13 @@ import com.badlogic.gdx.Gdx;
 
 public class Asteroid extends GraphicObject{
 	int color;
-	public Asteroid(int angle, int x, int y,FloatBuffer vertexBuffer)
+	public Asteroid(int angle, int x, int y,FloatBuffer vertexBuffer)	
     {   
     	super(x,y,vertexBuffer);
     	this.points = 4;
     	this.index = 8;
     	this.setAngle(angle);
+    	this.setMoving_angle(this.getAngle());
 		Random rand = new Random();
 		this.color = rand.nextInt(2);
     }
