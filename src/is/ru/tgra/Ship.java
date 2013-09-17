@@ -50,7 +50,12 @@ public class Ship extends GraphicObject
         	this.setAngle(this.getAngle() + 10);
         }
         if(Gdx.input.isKeyPressed(Keys.UP)){
-        	this.moving_angle = this.getAngle();
+        	if(!Gdx.input.isKeyPressed(Keys.LEFT) &&
+        	   !Gdx.input.isKeyPressed(Keys.RIGHT) &&
+        	   this.moving_angle != this.getAngle()) {
+        		this.speed -= Math.abs(this.moving_angle-this.getAngle());
+        	}
+         	this.moving_angle = this.getAngle();
         	if(this.speed <= 0 ) {
         		this.speed = 0.01;
         	}
@@ -61,7 +66,6 @@ public class Ship extends GraphicObject
         }
         else {
         	if(Math.round(this.speed) >0) {
-        	    this.speed -= this.deceleration;
         	}
         	else {
         		this.speed = 0;
