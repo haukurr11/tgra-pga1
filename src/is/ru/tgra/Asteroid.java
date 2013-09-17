@@ -13,7 +13,7 @@ public class Asteroid extends GraphicObject{
     	this.points = 4;
     	this.index = 8;
     	this.setAngle(angle);
-    	this.setMoving_angle(this.getAngle());
+    	this.setMoving_angle(this.getAngle()+25);
 		Random rand = new Random();
 		this.color = rand.nextInt(2);
     }

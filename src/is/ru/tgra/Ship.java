@@ -1,5 +1,6 @@
 package is.ru.tgra;
 
+import java.awt.Rectangle;
 import java.nio.FloatBuffer;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -15,13 +16,25 @@ public class Ship extends GraphicObject
 {
 	private List<Rocket> rockets;
 	private double speed;
+
 	private double acceleration;
 	private double deceleration;
     private int max_speed;
 	private boolean firing;
 	private int rocket_speed;
 	private int rocket_timealive;
-    public Ship(int x, int y,FloatBuffer vertexBuffer)
+	
+    public List<Rocket> getRockets() {
+		return rockets;
+	}
+	public double getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(double speed) {
+		this.speed = speed;
+	}
+	public Ship(int x, int y,FloatBuffer vertexBuffer)
     {
     	super(x,y,vertexBuffer);
 

@@ -1,5 +1,6 @@
 package is.ru.tgra;
 
+import java.awt.Rectangle;
 import java.nio.FloatBuffer;
 
 import org.lwjgl.opengl.GL11;
@@ -147,6 +148,21 @@ public class GraphicObject
   	    float y = (float) this.getY() - (float) Math.sin(Math.toRadians(this.getAngle()))*length;
     	this.setX(x);
     	this.setY(y);
+	}
+	
+
+	public boolean collides(GraphicObject obj) {
+		Rectangle rect1 = new Rectangle();
+		rect1.x = (int)this.x;
+		rect1.y = (int)this.y;
+		rect1.width = 50;
+		rect1.height = 50;
+		Rectangle rect2 = new Rectangle();
+		rect2.x = (int)obj.getX();
+		rect2.y = (int)obj.getY();
+		rect2.width = 50;
+		rect2.height = 50;
+		return rect1.intersects(rect2);
 	}
 
 }
