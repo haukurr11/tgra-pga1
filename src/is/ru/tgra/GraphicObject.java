@@ -17,6 +17,7 @@ public class GraphicObject
     private FloatBuffer vertexBuffer = null;
     protected int index = 0;
     protected int points = 4;
+    protected int moving_angle;
     
 	public GraphicObject(int value_x, int value_y,FloatBuffer vertexBuffer)
     {
@@ -27,6 +28,7 @@ public class GraphicObject
     	this.angle = 0;
     	this.vertices = new float[] {};
     	this.vertexBuffer = vertexBuffer;
+    	this.moving_angle=this.angle;
     }
     
 	public void display()
@@ -115,8 +117,8 @@ public class GraphicObject
 	
 	public void moveForward(double length) {
 
-		float x = (float) this.getX() + (float) Math.cos(Math.toRadians(this.getAngle()))*(float)length;
-  	    float y = (float) this.getY() + (float) Math.sin(Math.toRadians(this.getAngle()))*(float)length;
+		float x = (float) this.getX() + (float) Math.cos(Math.toRadians(this.moving_angle))*(float)length;
+  	    float y = (float) this.getY() + (float) Math.sin(Math.toRadians(this.moving_angle))*(float)length;
     	this.setX(x);
     	this.setY(y);
     	if(this.getX()<=0) {

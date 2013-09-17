@@ -50,6 +50,7 @@ public class Ship extends GraphicObject
         	this.setAngle(this.getAngle() + 10);
         }
         if(Gdx.input.isKeyPressed(Keys.UP)){
+        	this.moving_angle = this.getAngle();
         	if(this.speed <= 0 ) {
         		this.speed = 0.01;
         	}
@@ -86,6 +87,7 @@ public class Ship extends GraphicObject
         }
     }
     public void shoot() {
+    	System.out.println(this.getAngle());
     	float x = (float) this.getX() + (float) Math.cos(Math.toRadians(this.getAngle()))*(float)this.getWidth()/4;
   	    float y = (float) this.getY() + (float) Math.sin(Math.toRadians(this.getAngle()))*(float)this.getheight()/4;
     	this.rockets.add(new Rocket(this.getAngle(),(int)Math.round(x),(int)Math.round(y),this.speed+this.rocket_speed,  this.getVertexBuffer()));

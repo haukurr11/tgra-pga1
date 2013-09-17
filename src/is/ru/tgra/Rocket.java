@@ -29,6 +29,7 @@ public class Rocket extends GraphicObject{
     }
 	@Override
 	public void update() {
+	   this.moving_angle = this.getAngle();
 	   this.moveForward(this.speed);
 	}
 	
