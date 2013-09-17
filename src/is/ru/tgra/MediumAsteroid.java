@@ -7,5 +7,10 @@ public class MediumAsteroid extends Asteroid{
 		super(angle, x, y,vertexBuffer);
 		this.index = 12;
 	}
+	
+	@Override
+	public void update() {
+	   this.moveForward(2);
+	}
 
 }

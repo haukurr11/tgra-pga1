@@ -7,5 +7,10 @@ public class SmallAsteroid extends Asteroid{
 		super(angle, x, y,vertexBuffer);
 		this.index = 16;
 	}
+	
+	@Override
+	public void update() {
+	   this.moveForward(3);
+	}
 
 }
