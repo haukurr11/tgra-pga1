@@ -21,9 +21,11 @@ public class Game implements ApplicationListener {
     private int level;
     private Random rand;
     private int init_shipx;
-    private int init_shipy;
+    private int init_shipy; 
+    private ScreenText screentext;
     @Override
     public void create() {
+
     	this.init_shipx = Gdx.graphics.getWidth()/2-25;
     	this.init_shipy = Gdx.graphics.getHeight()/2;
     	this.level = 0;
@@ -54,9 +56,14 @@ public class Game implements ApplicationListener {
     	this.rand = new Random();
 
         this.vertexBuffer.rewind();
+
+    	this.screentext = new ScreenText(100,100,"hello world", this.vertexBuffer);
+
         Gdx.gl11.glVertexPointer(2, GL11.GL_FLOAT, 0, this.vertexBuffer);
+        
         Gdx.gl11.glEnableClientState(GL11.GL_VERTEX_ARRAY);
         Gdx.gl11.glClearColor(0, 0, .09f, 1f);
+        
     }
 
     @Override
@@ -68,14 +75,19 @@ public class Game implements ApplicationListener {
     }
     
     private void display(){
+    	
         Gdx.gl11.glClear(GL11.GL_COLOR_BUFFER_BIT);
         Gdx.gl11.glMatrixMode(GL11.GL_MODELVIEW);
         Gdx.gl11.glLoadIdentity();
         Gdx.gl11.glColor4f(1f, 1f, 1f, 1f);
+
         for(GraphicObject obj : this.objects) {
         	obj.display();
         } 
-    }
+        this.screentext.display();
+
+      }
+    
     private void nextLevel() {
     	this.objects = new LinkedList<GraphicObject>();
     	this.objects.add(this.humanPlayer);
@@ -131,6 +143,8 @@ public class Game implements ApplicationListener {
       	            	   ll.add(ma1);
       	            	   ll.add(ma2);
       	            	}
+    	            	else if(obj.getClass()==MediumAsteroid.class) {
+       	            	}
                 		it.remove();
                 		obj_it.remove();
                 	}
