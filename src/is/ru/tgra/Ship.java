@@ -14,29 +14,32 @@ import com.badlogic.gdx.Input.Keys;
 
 public class Ship extends GraphicObject
 {
-	private List<Rocket> rockets;
-	private double speed;
+    private List<Rocket> rockets;
+    private double speed;
 
-	private double acceleration;
-	private double deceleration;
+    private double acceleration;
+    private double deceleration;
     private int max_speed;
-	private boolean firing;
-	private int rocket_speed;
-	private int rocket_timealive;
-	
-    public List<Rocket> getRockets() {
-		return rockets;
-	}
-	public double getSpeed() {
-		return speed;
-	}
+    private boolean firing;
+    private int rocket_speed;
+    private int rocket_timealive;
 
-	public void setSpeed(double speed) {
-		this.speed = speed;
-	}
-	public Ship(int x, int y,FloatBuffer vertexBuffer)
+    public List<Rocket> getRockets()
     {
-    	super(x,y,vertexBuffer);
+        return rockets;
+    }
+    public double getSpeed()
+    {
+        return speed;
+    }
+
+    public void setSpeed(double speed)
+    {
+        this.speed = speed;
+    }
+    public Ship(int x, int y,FloatBuffer vertexBuffer)
+    {
+        super(x,y,vertexBuffer);
 
         this.setAngle(90);
         this.points = 4;
@@ -52,73 +55,93 @@ public class Ship extends GraphicObject
         this.rocket_timealive = 500;
 
     }
-    
+
     @Override
-    public void update() {
-    	this.moveForward(this.speed);
-    	if(Gdx.input.isKeyPressed(Keys.RIGHT)){
+    public void update()
+    {
+        this.moveForward(this.speed);
+        if(Gdx.input.isKeyPressed(Keys.RIGHT))
+        {
             this.setAngle(this.getAngle() -10);
         }
-        if(Gdx.input.isKeyPressed(Keys.LEFT)){
-        	this.setAngle(this.getAngle() + 10);
+        if(Gdx.input.isKeyPressed(Keys.LEFT))
+        {
+            this.setAngle(this.getAngle() + 10);
         }
-        if(Gdx.input.isKeyPressed(Keys.UP)){
-        	if(!Gdx.input.isKeyPressed(Keys.LEFT) && !Gdx.input.isKeyPressed(Keys.RIGHT) ) {
-        		this.speed -= Math.abs(this.getMoving_angle()-this.getAngle())/10;
-        	}
-         	this.setMoving_angle(this.getAngle());
-        	if(this.speed <= 0 ) {
-        		this.speed = 0.01;
-        	}
-        	if(Math.round(this.speed) < this.max_speed) {
-        	this.speed += this.acceleration;
+        if(Gdx.input.isKeyPressed(Keys.UP))
+        {
+            if(!Gdx.input.isKeyPressed(Keys.LEFT) && !Gdx.input.isKeyPressed(Keys.RIGHT) )
+            {
+                this.speed -= Math.abs(this.getMoving_angle()-this.getAngle())/10;
+            }
+            this.setMoving_angle(this.getAngle());
+            if(this.speed <= 0 )
+            {
+                this.speed = 0.01;
+            }
+            if(Math.round(this.speed) < this.max_speed)
+            {
+                this.speed += this.acceleration;
 
-        	}
+            }
         }
-        else {
-        	if(Math.round(this.speed) >0) {
-        	}
-        	else {
-        		this.speed = 0;
-        	}
+        else
+        {
+            if(Math.round(this.speed) >0)
+            {
+            }
+            else
+            {
+                this.speed = 0;
+            }
         }
-        if(Gdx.input.isKeyPressed(Keys.SPACE)){
-           if(!this.firing) {
-      	      this.shoot();
-      	      this.firing = true;
-           }
-         }
-        else {
-        	this.firing = false;
+        if(Gdx.input.isKeyPressed(Keys.SPACE))
+        {
+            if(!this.firing)
+            {
+                this.shoot();
+                this.firing = true;
+            }
+        }
+        else
+        {
+            this.firing = false;
         }
         Iterator<Rocket> it = this.rockets.iterator();
-        while (it.hasNext()) {
+        while (it.hasNext())
+        {
             Rocket rkt = it.next();
-            if(rkt.getCreated() < System.currentTimeMillis()-this.rocket_timealive) {
+            if(rkt.getCreated() < System.currentTimeMillis()-this.rocket_timealive)
+            {
                 it.remove();
-			}else {
+            }
+            else
+            {
                 rkt.update();
-			}
+            }
         }
     }
-    public void shoot() {
-    	float x = (float) this.getX() + (float) Math.cos(Math.toRadians(this.getAngle()))*(float)this.getWidth()/4;
-  	    float y = (float) this.getY() + (float) Math.sin(Math.toRadians(this.getAngle()))*(float)this.getheight()/4;
-    	this.rockets.add(new Rocket(this.getAngle(),(int)Math.round(x),(int)Math.round(y),this.speed+this.rocket_speed,  this.getVertexBuffer()));
+    public void shoot()
+    {
+        float x = (float) this.getX() + (float) Math.cos(Math.toRadians(this.getAngle()))*(float)this.getWidth()/4;
+        float y = (float) this.getY() + (float) Math.sin(Math.toRadians(this.getAngle()))*(float)this.getheight()/4;
+        this.rockets.add(new Rocket(this.getAngle(),(int)Math.round(x),(int)Math.round(y),this.speed+this.rocket_speed,  this.getVertexBuffer()));
     }
     @Override
-	public void display()
-	{
+    public void display()
+    {
         Gdx.gl11.glColor4f(0f, 1f, 3f, 1f);
-		super.display();
-		for(Rocket rkt : this.rockets) {
-			rkt.display();
-		}
+        super.display();
+        for(Rocket rkt : this.rockets)
+        {
+            rkt.display();
+        }
 
-	}
-    @Override 
-    public void moveForward(double speed) {
-    	super.moveForward(speed);
+    }
+    @Override
+    public void moveForward(double speed)
+    {
+        super.moveForward(speed);
 
     }
 }
