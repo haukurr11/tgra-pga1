@@ -7,7 +7,7 @@ import com.badlogic.gdx.Gdx;
 
 public class Asteroid extends GraphicObject
 {
-    int color;
+    private int color;
     public Asteroid(int angle, int x, int y,FloatBuffer vertexBuffer)
     {
         super(x,y,vertexBuffer);
@@ -18,6 +18,7 @@ public class Asteroid extends GraphicObject
         Random rand = new Random();
         this.color = rand.nextInt(2);
     }
+    
     @Override
     public void display()
     {
@@ -31,9 +32,11 @@ public class Asteroid extends GraphicObject
         }
         super.display();
     }
+    
     @Override
     public void update()
     {
         this.moveForward(1);
     }
+    
 }

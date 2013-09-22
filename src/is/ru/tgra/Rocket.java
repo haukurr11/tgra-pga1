@@ -12,10 +12,12 @@ public class Rocket extends GraphicObject
     private float green;
     private float blue;
     private double speed;
+    
     public long getCreated()
     {
         return created;
     }
+    
     public Rocket(int angle, int x, int y,double speed,FloatBuffer vertexBuffer)
     {
         super(x,y,vertexBuffer);
@@ -29,6 +31,7 @@ public class Rocket extends GraphicObject
         this.blue = rand.nextFloat();
         this.speed = speed;
     }
+    
     @Override
     public void update()
     {
@@ -45,4 +48,5 @@ public class Rocket extends GraphicObject
         super.display();
         Gdx.gl11.glColor4f(1f,1f,1f,1.0f);
     }
+    
 }

@@ -20,16 +20,6 @@ public class GraphicObject
     protected int points = 4;
     private int moving_angle;
 
-    public int getMoving_angle()
-    {
-        return moving_angle;
-    }
-
-    public void setMoving_angle(int moving_angle)
-    {
-        this.moving_angle = moving_angle % 360;
-    }
-
     public GraphicObject(int value_x, int value_y,FloatBuffer vertexBuffer)
     {
         this.width = 0;
@@ -44,14 +34,65 @@ public class GraphicObject
 
     public void display()
     {
-
         Gdx.gl11.glPushMatrix();
         Gdx.gl11.glTranslatef(this.getX(),this.getY(), 0);
         Gdx.gl11.glRotatef(this.angle-90, 0,0, 1);
         Gdx.gl11.glTranslatef(-this.getheight()/2,-this.getheight()/2, 0);
         Gdx.gl11.glDrawArrays(GL11.GL_TRIANGLE_STRIP, this.index, this.points);
         Gdx.gl11.glPopMatrix();
+    }
 
+    public void moveForward(double length)
+    {
+        float x = (float) this.getX() + (float) Math.cos(Math.toRadians(this.moving_angle))*(float)length;
+        float y = (float) this.getY() + (float) Math.sin(Math.toRadians(this.moving_angle))*(float)length;
+        this.setX(x);
+        this.setY(y);
+        if(this.getX()<=0)
+        {
+            this.setX(Gdx.graphics.getWidth());
+        }
+        else if(this.getY() <= 0)
+        {
+            this.setY(Gdx.graphics.getHeight());
+        }
+        else if(Gdx.graphics.getWidth()< this.getX())
+        {
+            this.setX(0);
+        }
+        else if(Gdx.graphics.getHeight()< this.getY())
+        {
+            this.setY(0);
+        }
+    }
+
+    public boolean collides(GraphicObject obj)
+    {
+        Rectangle rect1 = new Rectangle();
+        rect1.x = (int)this.x;
+        rect1.y = (int)this.y;
+        rect1.width = 50;
+        rect1.height = 50;
+        Rectangle rect2 = new Rectangle();
+        rect2.x = (int)obj.getX();
+        rect2.y = (int)obj.getY();
+        rect2.width = 50;
+        rect2.height = 50;
+        return rect1.intersects(rect2);
+    }
+
+    public void update()
+    {
+    }
+
+    public int getMoving_angle()
+    {
+        return moving_angle;
+    }
+
+    public void setMoving_angle(int moving_angle)
+    {
+        this.moving_angle = moving_angle % 360;
     }
 
     public int getWidth()
@@ -122,59 +163,6 @@ public class GraphicObject
     public void setVertexBuffer(FloatBuffer vertexBuffer)
     {
         this.vertexBuffer = vertexBuffer;
-
-    }
-
-    public void update()
-    {
-    }
-
-    public void moveForward(double length)
-    {
-
-        float x = (float) this.getX() + (float) Math.cos(Math.toRadians(this.moving_angle))*(float)length;
-        float y = (float) this.getY() + (float) Math.sin(Math.toRadians(this.moving_angle))*(float)length;
-        this.setX(x);
-        this.setY(y);
-        if(this.getX()<=0)
-        {
-            this.setX(Gdx.graphics.getWidth());
-        }
-        else if(this.getY() <= 0)
-        {
-            this.setY(Gdx.graphics.getHeight());
-        }
-        else if(Gdx.graphics.getWidth()< this.getX())
-        {
-            this.setX(0);
-        }
-        else if(Gdx.graphics.getHeight()< this.getY())
-        {
-            this.setY(0);
-        }
-    }
-    public void moveBackwards(int length)
-    {
-        float x = (float) this.getX() - (float) Math.cos(Math.toRadians(this.getAngle()))*length;
-        float y = (float) this.getY() - (float) Math.sin(Math.toRadians(this.getAngle()))*length;
-        this.setX(x);
-        this.setY(y);
-    }
-
-
-    public boolean collides(GraphicObject obj)
-    {
-        Rectangle rect1 = new Rectangle();
-        rect1.x = (int)this.x;
-        rect1.y = (int)this.y;
-        rect1.width = 50;
-        rect1.height = 50;
-        Rectangle rect2 = new Rectangle();
-        rect2.x = (int)obj.getX();
-        rect2.y = (int)obj.getY();
-        rect2.width = 50;
-        rect2.height = 50;
-        return rect1.intersects(rect2);
     }
 
 }

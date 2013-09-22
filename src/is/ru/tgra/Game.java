@@ -208,12 +208,8 @@ public class Game implements ApplicationListener
     @Override
     public void resize(int width, int height)
     {
-        Gdx.gl11.glMatrixMode(GL11.GL_PROJECTION);
-        Gdx.gl11.glLoadIdentity();
-        Gdx.glu.gluOrtho2D(Gdx.gl11, 0, width, 0, height);
-        Gdx.gl11.glViewport(0, 0, width, height);
-        Gdx.gl11.glMatrixMode(GL11.GL_MODELVIEW_MATRIX);
     }
+    
     @Override
     public void resume()
     {

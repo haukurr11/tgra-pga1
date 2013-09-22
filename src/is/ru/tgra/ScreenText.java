@@ -24,6 +24,7 @@ public class ScreenText extends GraphicObject
         super(x,y,vb);
         this.text = "";
     }
+    
     @Override
     public void display()
     {
