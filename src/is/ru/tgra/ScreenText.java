@@ -23,7 +23,7 @@ public ScreenText(int x,int y,String text,FloatBuffer vb){
 	  BitmapFont font = new BitmapFont();
 	  spriteBatch.begin(); 
 	  font.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-	  font.draw(spriteBatch, this.text, 25, 100); 
+	  font.draw(spriteBatch, this.text, this.getX(), this.getY()); 
 	  spriteBatch.end();
 	  Gdx.gl11.glVertexPointer(2, GL11.GL_FLOAT, 0, this.getVertexBuffer());
   }
