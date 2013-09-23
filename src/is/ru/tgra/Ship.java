@@ -11,6 +11,11 @@ import org.lwjgl.opengl.GL11;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 
+/**
+ * This class handles the Ship {@link GraphicObject} which the player controls in the game.
+ * This ship uses {@link Rocket} to destroy the {@link Asteroid} objects.
+ *
+ */
 
 public class Ship extends GraphicObject
 {
@@ -21,22 +26,44 @@ public class Ship extends GraphicObject
     private boolean firing;
     private int rocket_speed;
     private int rocket_timealive;
-
+    
+    /**
+     * Getter function which returns a list of {@link Rocket} objects.
+     * @return	List of {@link Rocket} objects.
+     */
     public List<Rocket> getRockets()
     {
         return rockets;
     }
     
+    /**
+     * Getter function for the movement speed of the ship.
+     * @return	The speed of the ship.
+     */
     public double getSpeed()
     {
         return speed;
     }
 
+    /**
+     * Setter function which determines the movement speed of the ship.
+     * @param speed	The speed of the ship.
+     */
     public void setSpeed(double speed)
     {
         this.speed = speed;
     }
     
+    /**
+     * A constructor which configures the position on the screen, and includes it in the 
+     * vertex buffer. This function also determines the index number in the vertex buffer,
+     * the speed of acceleration when moveForward is pushed, the max speed of the ship and
+     * also the speed and live time of the {@link Rocket} objects fired.
+     * 
+     * @param x				The position on the x-grid.
+     * @param y				The position on the y-grid.
+     * @param vertexBuffer	
+     */
     public Ship(int x, int y,FloatBuffer vertexBuffer)
     {
         super(x,y,vertexBuffer);
@@ -53,7 +80,10 @@ public class Ship extends GraphicObject
         this.rocket_speed = 10;
         this.rocket_timealive = 500;
     }
-
+    
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void update()
     {
@@ -109,6 +139,10 @@ public class Ship extends GraphicObject
         }
     }
     
+    /**
+     * Function which adds {@link Rocket} objects to a list and enables the ship to fire
+     * them with a touch of a button.
+     */
     public void shoot()
     {
         float x = (float) this.getX() + 
@@ -119,6 +153,9 @@ public class Ship extends GraphicObject
         		         this.speed+this.rocket_speed, this.getVertexBuffer()));
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void display()
     {

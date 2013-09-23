@@ -1,5 +1,11 @@
 package is.ru.tgra;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
+
+/**
+ * DesktopRunner class.
+ * Serves as the main program which runs the game.
+ */
+
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 public class DesktopRunner
 {

@@ -13,6 +13,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.utils.BufferUtils;
 
+/**
+ * This class handles the game as a whole, initializing the objects which will be displayed
+ * in the gameplay. It implements the {@link ApplicationListener} to render the whole display
+ * and update when keys are pressed or game state changes.
+ */
+
 public class Game implements ApplicationListener
 {
     private Ship humanPlayer;
@@ -29,7 +35,11 @@ public class Game implements ApplicationListener
     private int level;
     private int score;
     private boolean gameover;
-
+    
+    /**
+     * Creates a new game state, and initializes all the objects which will appear in 
+     * the game.
+     */
     @Override
     public void create()
     {
@@ -73,7 +83,10 @@ public class Game implements ApplicationListener
         Gdx.gl11.glEnableClientState(GL11.GL_VERTEX_ARRAY);
         Gdx.gl11.glClearColor(0, 0, .09f, 1f);
     }
-
+    
+    /**
+     * Function which handles the display of all objects represented in this game.
+     */
     private void display()
     {
         Gdx.gl11.glClear(GL11.GL_COLOR_BUFFER_BIT);
@@ -96,7 +109,10 @@ public class Game implements ApplicationListener
         this.scoretext.display();
         this.leveltext.display();
     }
-
+    
+    /**
+     * Function which creates the next level when the player has finished the current one.
+     */
     private void nextLevel()
     {
         this.asteroids = new LinkedList<Asteroid>();
@@ -124,7 +140,10 @@ public class Game implements ApplicationListener
         }
 
     }
-
+    /**
+     * Function which updates the screen whenever buttons are pushed or the state of the game
+     * changes.
+     */
     private void update()
     {
         if(this.gameover)
@@ -197,7 +216,10 @@ public class Game implements ApplicationListener
         this.asteroids.addAll(ll);
         this.humanPlayer.update();
     }
-
+    /**
+     * Function which runs the display and update functions and renders the objects on the
+     * screen.
+     */
     @Override
     public void render()
     {
