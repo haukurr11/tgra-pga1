@@ -61,6 +61,7 @@ public class ScreenText extends GraphicObject
         font.draw(spriteBatch, this.text, this.getX(), this.getY());
         spriteBatch.end();
         Gdx.gl11.glVertexPointer(2, GL11.GL_FLOAT, 0, this.getVertexBuffer());
+        spriteBatch.dispose();
     }
     
     /**
