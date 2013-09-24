@@ -62,6 +62,7 @@ public class ScreenText extends GraphicObject
         spriteBatch.end();
         Gdx.gl11.glVertexPointer(2, GL11.GL_FLOAT, 0, this.getVertexBuffer());
         spriteBatch.dispose();
+        font.dispose();
     }
     
     /**
