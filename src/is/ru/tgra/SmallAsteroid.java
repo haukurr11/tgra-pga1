@@ -22,6 +22,9 @@ public class SmallAsteroid extends Asteroid
     {
         super(angle, x, y,vertexBuffer);
         this.index = 16;
+        this.radius /= 4;
+        this.width = 13;
+        this.height = 13;
     }
 	
 	/**

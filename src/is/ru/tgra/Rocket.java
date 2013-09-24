@@ -51,6 +51,9 @@ public class Rocket extends GraphicObject
         this.green = rand.nextFloat();
         this.blue = rand.nextFloat();
         this.speed = speed;
+        this.radius = 20;
+        this.width = 10;
+        this.height = 2;
     }
     
     /**

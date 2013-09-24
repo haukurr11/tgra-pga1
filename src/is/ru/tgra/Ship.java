@@ -79,6 +79,9 @@ public class Ship extends GraphicObject
         this.max_speed = 10;
         this.rocket_speed = 10;
         this.rocket_timealive = 500;
+        this.radius = 20;
+        this.width = 20;
+        this.height = 20;
     }
     
     /**

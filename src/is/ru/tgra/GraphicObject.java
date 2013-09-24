@@ -19,15 +19,16 @@ import com.badlogic.gdx.utils.BufferUtils;
 
 public abstract class GraphicObject
 {
-    private int width;
-    private int height;
-    private float x, y;
+    protected int width;
+    protected int height;
+    protected float x, y;
     private int angle;
     private float vertices [];
     private FloatBuffer vertexBuffer = null;
     protected int index = 0;
     protected int points = 4;
     private int moving_angle;
+    protected int radius;
 
     /**
      * A constructor which initializes the position of an GraphicObject and creates a new
@@ -48,6 +49,7 @@ public abstract class GraphicObject
         this.vertices = new float[] {};
         this.vertexBuffer = vertexBuffer;
         this.moving_angle=this.angle;
+        this.radius = 50;
     }
     
     /**
@@ -101,17 +103,16 @@ public abstract class GraphicObject
      */
     public boolean collides(GraphicObject obj)
     {
-        Rectangle rect1 = new Rectangle();
-        rect1.x = (int)this.x;
-        rect1.y = (int)this.y;
-        rect1.width = 50;
-        rect1.height = 50;
-        Rectangle rect2 = new Rectangle();
-        rect2.x = (int)obj.getX();
-        rect2.y = (int)obj.getY();
-        rect2.width = 50;
-        rect2.height = 50;
-        return rect1.intersects(rect2);
+        int centerX1 = (int)this.x + this.width/2;
+        int centerY1 = (int)this.y + this.height/2;
+
+        int centerX2 = (int)obj.x + obj.width/2;
+        int centerY2 = (int)obj.y + obj.height/2;
+        
+        double dist = Math.sqrt((centerX1-centerX2)*(centerX1-centerX2) + (centerY1-centerY2)*(centerY1-centerY2)); 
+        if(dist <= this.radius+obj.radius)
+        	return true;
+        return false;
     }
     
     /**

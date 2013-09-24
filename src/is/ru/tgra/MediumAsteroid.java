@@ -24,6 +24,9 @@ public class MediumAsteroid extends Asteroid
     {
         super(angle, x, y,vertexBuffer);
         this.index = 12;
+        this.radius /= 2;
+        this.width = 25;
+        this.height = 25;
     }
 	
 	/**
